@@ -11,4 +11,4 @@ st.write("En el presente trabajo se pondrá en valor el análisis realizado sobr
 st.markdown("##### OBJETIVOS:")
 st.markdown("* 1) Determinar la influencia de las variables rating, precio, idioma, nivel y tiempo")
 st.markdown("* 2) Generar 4 KPI´s para monitorear la eficacia de los objetivos de la empresa, uno de ellos siendo la Tasa de Conversion")
-
+st.write("A continuación los invito a que pasen por cada página para observar la hipótesis y conclusión dejada por cada variable.")
