@@ -3,7 +3,4 @@ pandas
 numpy
 matplotlib
 seaborn
-matplotlib.ticker
 wordcloud
-nltk
-re
