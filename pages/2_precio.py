@@ -51,11 +51,21 @@ st.write("Como se puede observar, los cursos que son pagos son ampliamente super
 
 
 st.markdown("##### RANGO DE PRECIOS")
+st.write("Como se puede observar en el siguiente grafico, la cantidad de personas anotada a cursos que tiene un rango de valor entre los 1-50 dolares es superior al resto.")
+st.write("Pero, algo interesante pasa cuando observamos la media de la cantidad de subscriptores.")
 
-edx_pr = edx[["n_enrolled","price"]]
-edx_price = edx_pr.groupby("price")["n_enrolled"].sum()
+media = st.checkbox("Media de suscriptores")
+
+edx_pr = edx[["n_enrolled", "price"]]
+
+if media:
+    edx_price = edx_pr.groupby("price")["n_enrolled"].mean()
+else:
+    edx_price = edx_pr.groupby("price")["n_enrolled"].sum()
+
 edx_price = edx_price.to_frame().reset_index()
-edx_price.sort_values("n_enrolled",ascending=False,inplace=True)
+edx_price.sort_values("n_enrolled", ascending=False, inplace=True)
+
 rangos = [
     (1, 50),
     (51, 100),
@@ -68,21 +78,25 @@ rangos = [
     (401, 450)
 ]
 edx_price["price_range"] = pd.cut(edx_price['price'], bins=[r[0]-1 for r in rangos] + [rangos[-1][1]], labels=[f'{r[0]}-{r[1]}' for r in rangos])
-edx_price = edx_price.groupby('price_range')['n_enrolled'].sum().reset_index()
-filtered_ranges = ['1-50', '51-100', '301-350']
-edx_price_filtered = edx_price[edx_price['price_range'].isin(filtered_ranges)]
-colores1 = ['4c81bf' if i == 0 else 'a6a6a5' for i in range(len(edx_price["price_range"]))]
+
+if media:
+    edx_price = edx_price.groupby('price_range')['n_enrolled'].mean().reset_index()
+else:
+    edx_price = edx_price.groupby('price_range')['n_enrolled'].sum().reset_index()
+
+colores1 = ['#4c81bf'] + ['#a6a6a5'] * (len(edx_price) - 1)
 fig1, ax1 = plt.subplots()
-sns.barplot(data=edx_price, x="price_range", y="n_enrolled", saturation=1, ax=ax1,palette=colores1)
+sns.barplot(data=edx_price, x="price_range", y="n_enrolled", saturation=1, ax=ax1, palette=colores1)
 sns.despine(left=True, bottom=True)
 ax1.set_xlabel("Precio")
 ax1.set_ylabel("Numero de Suscriptores")
 ticks = plt.xticks()[0]
 plt.xticks([ticks[0]])
-st.pyplot(fig1)  
+st.pyplot(fig1)
 
-
-
+st.write("Si analizamos mediante la media, la cantidad de suscriptores promedio de cursos de entre 1-50 dolares cae muy por detras de sus pares, y el rango de precio que emerge es el de entre los 301-350 dolares")
+st.markdown("##### Conclusion:")
+st.write("Se debe optar por realizar un curso pago donde el rango de precio sea de entre 301-350 dolares")
 
 
 
