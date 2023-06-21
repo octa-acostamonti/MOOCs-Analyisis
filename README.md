@@ -7,6 +7,6 @@
 
 #### Documentacion
 
-https://movie-api-octacosta.onrender.com/docs
+https://moocsocta.streamlit.app/
 
 
