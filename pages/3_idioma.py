@@ -20,3 +20,5 @@ sns.despine(left=True, bottom=True)
 ax.set_xlabel("Numero de Suscriptores")
 ax.set_ylabel("Idioma")
 st.pyplot(fig)  
+
+st.write
