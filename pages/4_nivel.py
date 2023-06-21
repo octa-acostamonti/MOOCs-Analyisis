@@ -12,6 +12,8 @@ edx_level.sort_values("n_enrolled",ascending=False,inplace=True)
 
 st.title("NIVEL")
 st.divider()
+
+
 fig, ax = plt.subplots()
 sns.barplot(data=edx_level, x="n_enrolled", y="Level", saturation=1, ax=ax)
 sns.despine(left=True, bottom=True)
