@@ -50,7 +50,34 @@ st.pyplot(fig)
 st.write("Como se puede observar, los cursos que son pagos son ampliamente superiores en términos de cantidad de suscriptores que aquellos que son gratuitos. Esto nos lleva a pensar que lo ideal sería realizar un curso pago.")
 
 
+st.markdown("##### RANGO DE PRECIOS")
 
+edx_pr = edx[["n_enrolled","price"]]
+edx_price = edx_pr.groupby("price")["n_enrolled"].sum()
+edx_price = edx_price.to_frame().reset_index()
+edx_price.sort_values("n_enrolled",ascending=False,inplace=True)
+rangos = [
+    (1, 50),
+    (51, 100),
+    (101, 150),
+    (151, 200),
+    (201, 250),
+    (251, 300),
+    (301, 350),
+    (351, 400),
+    (401, 450)
+]
+edx_price["price_range"] = pd.cut(edx_price['price'], bins=[r[0]-1 for r in rangos] + [rangos[-1][1]], labels=[f'{r[0]}-{r[1]}' for r in rangos])
+edx_price = edx_price.groupby('price_range')['n_enrolled'].sum().reset_index()
+filtered_ranges = ['1-50', '51-100', '301-350']
+edx_price_filtered = edx_price[edx_price['price_range'].isin(filtered_ranges)]
+
+fig1, ax1 = plt.subplots()
+sns.barplot(data=edx_price, x="price_range", y="n_enrolled", saturation=1, ax=ax1)
+sns.despine(left=True, bottom=True)
+ax1.set_xlabel("Precio")
+ax1.set_ylabel("Numero de Suscriptores")
+st.pyplot(fig1)  
 
 
 
