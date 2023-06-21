@@ -71,12 +71,14 @@ edx_price["price_range"] = pd.cut(edx_price['price'], bins=[r[0]-1 for r in rang
 edx_price = edx_price.groupby('price_range')['n_enrolled'].sum().reset_index()
 filtered_ranges = ['1-50', '51-100', '301-350']
 edx_price_filtered = edx_price[edx_price['price_range'].isin(filtered_ranges)]
-
+colores1 = ['4c81bf' if i == 0 else 'a6a6a5' for i in range(len(edx_price["price_range"]))]
 fig1, ax1 = plt.subplots()
-sns.barplot(data=edx_price, x="price_range", y="n_enrolled", saturation=1, ax=ax1)
+sns.barplot(data=edx_price, x="price_range", y="n_enrolled", saturation=1, ax=ax1,palette=colores1)
 sns.despine(left=True, bottom=True)
 ax1.set_xlabel("Precio")
 ax1.set_ylabel("Numero de Suscriptores")
+ticks = plt.xticks()[0]
+plt.xticks([ticks[0]])
 st.pyplot(fig1)  
 
 
