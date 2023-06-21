@@ -13,12 +13,20 @@ edx_language = edx_lan.groupby("language")["n_enrolled"].sum()
 edx_language = edx_language.to_frame().reset_index()
 edx_language.sort_values("n_enrolled",ascending=False)
 
+st.title("IDIOMA")
+st.divider()
 
 fig, ax = plt.subplots()
 sns.barplot(data=edx_language, x="language", y="n_enrolled", saturation=1, ax=ax)
 sns.despine(left=True, bottom=True)
-ax.set_xlabel("Numero de Suscriptores")
-ax.set_ylabel("Idioma")
+ax.set_xlabel("Idioma")
+ax.set_ylabel("Numero de Suscriptores")
+
+plt.xticks([2,3]) 
 st.pyplot(fig)  
 
-st.write
+st.write("Como se puede observar, el mercado de cursos en ingles domina a los demas idiomas de manera contundente. De hecho, la suma de todos los demas idiomas no alcanza para llegarle ni a los talones a los numeros de los cursos en ingles.")
+st.write("En un analisis mas profundo, se logro desglosar que existe un mercado de aproximadamente 1.700.000 personas que quiere cursos en español, pero solo consigue cursos subtitulados en español. Esto podria ser de gran ventaja para su empresa.")
+
+
+
