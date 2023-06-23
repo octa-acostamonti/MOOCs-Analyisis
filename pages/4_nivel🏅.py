@@ -12,10 +12,13 @@ edx_level.sort_values("n_enrolled",ascending=False,inplace=True)
 
 st.title("NIVEL")
 st.divider()
-
-
+st.markdown("##### Hipotesis:")
+st.write("Mediante los datos de el nivel de los cursos se podra concluir cual es el mejor nivel para ofrecer.")
+st.divider()
+st.markdown("##### Cantidad de Suscriptores por Nivel")
 fig, ax = plt.subplots()
-sns.barplot(data=edx_level, x="n_enrolled", y="Level", saturation=1, ax=ax)
+colores = ['#4c81bf'] + ['#a6a6a5'] * (len(edx_level) - 1)
+sns.barplot(data=edx_level, x="n_enrolled", y="Level", saturation=1, ax=ax,palette=colores)
 sns.despine(left=True, bottom=True)
 ax.set_xlabel("Numero de Suscriptores")
 ax.set_ylabel("Nivel")
@@ -29,9 +32,10 @@ edx_ganancia = edx[["Level","ganancia_curso"]].groupby("Level")["ganancia_curso"
 
 
 fig1, ax1 = plt.subplots()
-sns.barplot(data=edx_ganancia, x="ganancia_curso", y="Level", saturation=1, ax=ax1)
+colores1 = ['#4c81bf'] + ['#a6a6a5'] * (len(edx_level) - 1)
+sns.barplot(data=edx_ganancia, x="ganancia_curso", y="Level", saturation=1, ax=ax1,palette=colores1)
 sns.despine(left=True, bottom=True)
-ax1.set_xlabel("Numero de Suscriptores")
+ax1.set_xlabel("Ganancias")
 ax1.set_ylabel("Nivel")
 st.pyplot(fig1)  
 

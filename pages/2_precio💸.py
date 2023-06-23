@@ -84,17 +84,29 @@ if media:
 else:
     edx_price = edx_price.groupby('price_range')['n_enrolled'].sum().reset_index()
 
-colores1 = ['#4c81bf'] + ['#a6a6a5'] * (len(edx_price) - 1)
+colores1 = ['#a6a6a5'] * len(edx_price)
+if media:
+    colores1[6] = '#4c81bf'  
+else:
+    colores1[0] = '#4c81bf' 
 fig1, ax1 = plt.subplots()
 sns.barplot(data=edx_price, x="price_range", y="n_enrolled", saturation=1, ax=ax1, palette=colores1)
 sns.despine(left=True, bottom=True)
 ax1.set_xlabel("Precio")
-ax1.set_ylabel("Numero de Suscriptores")
+if media:
+    ax1.set_ylabel("Media de Suscriptores")
+else:
+    ax1.set_ylabel("Numero de Suscriptores")
+
 ticks = plt.xticks()[0]
-plt.xticks([ticks[0]])
+if media:
+    plt.xticks([ticks[6]])
+else:
+    plt.xticks([ticks[0]])
 st.pyplot(fig1)
 
 st.write("Si analizamos mediante la media, la cantidad de suscriptores promedio de cursos de entre 1-50 dolares cae muy por detras de sus pares, y el rango de precio que emerge es el de entre los 301-350 dolares")
+st.divider()
 st.markdown("##### Conclusion:")
 st.write("Se debe optar por realizar un curso pago donde el rango de precio sea de entre 301-350 dolares")
 

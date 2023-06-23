@@ -27,6 +27,11 @@ edx_lenght = edx_lenght.groupby("rango_semanas")["n_enrolled"].sum().reset_index
 edx_lenght.sort_values("n_enrolled",ascending=False,inplace=True)
 st.title("TIEMPO")
 st.divider()
+st.markdown("##### Hipotesis:")
+st.write("Se espera que con esta variable se pueda enccontrar el rango de semana mas optimo para los cursos.")
+st.divider()
+
+st.markdown("##### Cantidad de Suscriptores por Rango de Semanas")
 fig, ax = plt.subplots()
 sns.barplot(data=edx_lenght, x="rango_semanas", y="n_enrolled", saturation=1, ax=ax)
 sns.despine(left=True, bottom=True)
@@ -35,3 +40,8 @@ ax.set_ylabel("Numero de Suscriptores")
 st.pyplot(fig)  
 
 st.write("Se puede observar en el grafico que, el rango de tiempo optimo para hacer un curso es entre 9 y 12 semanas.")
+st.divider()
+st.markdown("##### Conclusion:")
+st.write("El rango de tiempo en semanas mas optimo es entre 9 y 12 semanas.")
+
+
